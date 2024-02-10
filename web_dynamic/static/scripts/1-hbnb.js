@@ -5,7 +5,7 @@ $(document).ready(function () {
   // Function to update the h4 tag with the list of checked amenities
   function updateAmenities() {
       const amenitiesList = Object.values(checkedAmenities).join(', ');
-      $('.popover h4').text(amenitiesList);
+      $('#checked-amenities').text(checkedAmenities.join(', '));
   }
 
   // Listen for changes on each input checkbox tag
