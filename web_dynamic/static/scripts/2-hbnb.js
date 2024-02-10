@@ -1,11 +1,18 @@
 $(document).ready(function () {
     // Variable to store the IDs of checked amenities
     const checkedAmenities = {};
+    const maxCharacters = 40;
   
-    // Function to update the h4 tag with the list of checked amenities
-    function updateAmenities() {
-        const amenitiesList = Object.values(checkedAmenities).join(', ');
-        $('.popover h4').text(amenitiesList);
+    // Function to update the list of checked amenities in HTML
+    function updateCheckedAmenities() {
+        let displayText = Object.values(checkedAmenities).join(', ');
+
+        // Truncate the text if it exceeds the maximum number of characters
+        if (displayText.length > maxCharacters) {
+            displayText = displayText.substring(0, maxCharacters) + '...';
+        }
+
+        $('#checked_amenities').text(displayText);
     }
 
     // Function to update the availability status
@@ -32,7 +39,7 @@ $(document).ready(function () {
         }
   
         // Update the h4 tag with the list of checked amenities
-        updateAmenities();
+        updateCheckedAmenities();
     });
 
     // Request to get the status
