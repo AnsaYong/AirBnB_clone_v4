@@ -1,27 +1,29 @@
 $(document).ready(function () {
-  // Variable to store the IDs of checked amenities
-  const checkedAmenities = {};
+    // Array to store the names of checked amenities
+    const checkedAmenities = [];
 
-  // Function to update the h4 tag with the list of checked amenities
-  function updateAmenities() {
-      const amenitiesList = Object.values(checkedAmenities).join(', ');
-      $('#checked-amenities').text(checkedAmenities.join(', '));
-  }
+    // Function to update the list of checked amenities in HTML
+    function updateCheckedAmenities() {
+        $('#checked-amenities').text(checkedAmenities.join(', '));
+    }
 
-  // Listen for changes on each input checkbox tag
-  $('input[type="checkbox"]').change(function () {
-      const amenityId = $(this).closest('li').data('id');
-      const amenityName = $(this).closest('li').data('name');
+    // Listen for changes on each input checkbox tag
+    $('input[type="checkbox"]').change(function () {
+        const amenityId = $(this).closest('li').data('id');
+        const amenityName = $(this).closest('li').data('name');
 
-      // If checkbox is checked, store Amenity ID in variable
-      if ($(this).is(':checked')) {
-          checkedAmenities[amenityId] = amenityName;
-      } else {
-          // If checkbox is unchecked, remove Amenity ID from variable
-          delete checkedAmenities[amenityId];
-      }
+        // If checkbox is checked, add amenity name to the array
+        if ($(this).is(':checked')) {
+            checkedAmenities.push(amenityName);
+        } else {
+            // If checkbox is unchecked, remove amenity name from the array
+            const index = checkedAmenities.indexOf(amenityName);
+            if (index !== -1) {
+                checkedAmenities.splice(index, 1);
+            }
+        }
 
-      // Update the h4 tag with the list of checked amenities
-      updateAmenities();
-  });
+        // Update the list of checked amenities in HTML
+        updateCheckedAmenities();
+    });
 });
