@@ -14,16 +14,6 @@ $(document).ready(function () {
 
         $('#checked_amenities').text(displayText);
     }
-
-    // Function to update the availability status
-    function updateStatus(status) {
-        const apiStatusDiv = $('#api_status');
-        if (status === 'OK') {
-            apiStatusDiv.addClass('available');
-        } else {
-            apiStatusDiv.removeClass('available');
-        }
-    }
   
     // Listen for changes on each input checkbox tag
     $('input[type="checkbox"]').change(function () {
@@ -44,9 +34,11 @@ $(document).ready(function () {
 
     // Request to get the status
     $.get('http://0.0.0.0:5001/api/v1/status/', function (data) {
-        const status = data.status;
-        // Update the availability status
-        updateStatus(status);
+        if (data.status === 'OK') {
+            $('#api_status').addClass('available');
+          } else {
+            $('#api_status').removeClass('available');
+          }
     });
   });
   
