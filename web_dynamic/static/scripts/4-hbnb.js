@@ -52,7 +52,7 @@ $(document).ready(function () {
             url: 'http://0.0.0.0:5001/api/v1/places_search/',
             type: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            data: JSON.stringify({ amenities: Object.values(checkedAmenities) }),
+            data: JSON.stringify({ amenities: Object.keys(checkedAmenities) }),
             success: function (response) {
                 // Loop through the response data and append place information to the HTML
                 $('SECTION.places').empty();
@@ -82,5 +82,9 @@ $(document).ready(function () {
 
     // Call the fetchPlaces function to fetch places data
     fetchPlaces();
+
+    $( "button" ).on( "click", function() {
+        fetchPlaces(); 
+      });
 
 });
